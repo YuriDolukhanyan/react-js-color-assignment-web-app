@@ -37,6 +37,12 @@ const ColorList = () => {
 
     try {
       const data = await getRandomColor(name);
+
+      if (!data) {
+        showToast("Only one trial per session...");
+        return;
+      }
+
       if (data.error) {
         setError(data.error);
         return;

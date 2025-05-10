@@ -1,4 +1,6 @@
 import { GOOGLE_SHEET_URL } from "../constants/googleSheetUrl";
+import { StorageService } from "../services/StorageService";
+import { USER_STORAGE_KEY } from "../constants/storageKeys";
 
 const fetchColors = async () => {
   return fetch(GOOGLE_SHEET_URL)
@@ -7,7 +9,22 @@ const fetchColors = async () => {
     .catch((err) => console.error("Error fetching colors:", err));
 };
 
+const fetchParticipants = async () => {
+  try {
+    const response = await fetch(`${GOOGLE_SHEET_URL}?type=participants`);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Failed to fetch participants:", err);
+    return [];
+  }
+};
+
 const getRandomColor = async (name) => {
+  const hasParticipated = StorageService.getItem(USER_STORAGE_KEY);
+
+  if (hasParticipated) return false;
+
   try {
     const response = await fetch(GOOGLE_SHEET_URL, {
       method: "POST",
@@ -16,6 +33,7 @@ const getRandomColor = async (name) => {
     });
 
     const data = await response.json();
+    StorageService.setItem(USER_STORAGE_KEY, "true");
     return data;
   } catch (err) {
     console.error("Failed to access Google Sheet:", err);
@@ -40,4 +58,4 @@ const resetColors = async () => {
   }
 };
 
-export { fetchColors, getRandomColor, resetColors };
+export { fetchColors, fetchParticipants, getRandomColor, resetColors };

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ACTIONS } from "../constants/reducerActions";
-import { fetchColors } from "../api/googleSheetApi";
+import { fetchColors, fetchParticipants } from "../api/googleSheetApi";
 import { StorageService } from "../services/StorageService";
 import { COLOR_STORAGE_KEY } from "../constants/storageKeys";
 import { ResultContext } from "../contexts/ResultContext";
@@ -27,11 +27,19 @@ const GameContainer = () => {
     if (storedResults && storedResults.length > 0) {
       resultDispatch({ type: ACTIONS.SET_USERS, payload: storedResults });
     }
+
     fetchColors()
       .then((data) => {
         colorDispatch({ type: ACTIONS.SET_COLORS, payload: data });
       })
       .catch((err) => console.error("Error fetching colors:", err));
+
+    fetchParticipants()
+      .then((participants) => {
+        resultDispatch({ type: ACTIONS.SET_USERS, payload: participants });
+        StorageService.setItem(COLOR_STORAGE_KEY, JSON.stringify(participants));
+      })
+      .catch((err) => console.error("Error fetching participants:", err));
   }, []);
 
   return (
