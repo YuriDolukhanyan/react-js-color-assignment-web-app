@@ -3,6 +3,8 @@ import { AvailableColorContext } from "../contexts/AvailableColorContext";
 import { ResultContext } from "../contexts/ResultContext";
 import { ACTIONS } from "../constants/reducerActions";
 import { fetchColors, getRandomColor } from "../api/googleSheetApi";
+import { StorageService } from "../services/StorageService";
+import { USER_STORAGE_KEY } from "../constants/storageKeys";
 import ColorItem from "./ColorItem";
 import Toast from "./Toast";
 import "../styles/colorList.css";
@@ -15,8 +17,8 @@ const ColorList = () => {
   const { results, resultDispatch } = useContext(ResultContext);
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const hasParticipated = StorageService.getItem(USER_STORAGE_KEY);
 
   const showToast = (message) => {
     setToastMessage(message);
@@ -62,7 +64,6 @@ const ColorList = () => {
 
       setName("");
       setError("Color assigned!");
-      setSubmitted(true);
       showToast(
         `THANK YOU: The color "${data.color}" was assigned to the user "${data.name}"!`
       );
@@ -92,7 +93,9 @@ const ColorList = () => {
             onClose={() => setToastMessage("")}
           />
         )}
-        {!submitted && (
+        {hasParticipated ? (
+          "You have already been assigned a color during this session..."
+        ) : (
           <>
             <h2>Enter Your Name</h2>
             <input

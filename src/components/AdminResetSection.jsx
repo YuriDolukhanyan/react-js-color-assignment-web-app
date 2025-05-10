@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AvailableColorContext } from "../contexts/AvailableColorContext";
 import { StorageService } from "../services/StorageService";
-import { COLOR_STORAGE_KEY } from "../constants/storageKeys";
+import { COLOR_STORAGE_KEY, USER_STORAGE_KEY } from "../constants/storageKeys";
 import { ResultContext } from "../contexts/ResultContext";
 import { ACTIONS } from "../constants/reducerActions";
 import { fetchColors, resetColors } from "../api/googleSheetApi";
@@ -19,6 +19,7 @@ const AdminResetSection = () => {
 
   const handleReset = async () => {
     StorageService.setItem(COLOR_STORAGE_KEY, JSON.stringify([]));
+    StorageService.setItem(USER_STORAGE_KEY, 0);
     resultDispatch({ type: ACTIONS.RESET_USERS });
 
     await resetColors();
@@ -39,7 +40,7 @@ const AdminResetSection = () => {
         />
       )}
       <button className="submit-button" onClick={handleReset}>
-        Reset Game
+        Reset Overall Game
       </button>
     </>
   );

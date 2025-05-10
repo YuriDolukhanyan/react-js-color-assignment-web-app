@@ -22,7 +22,6 @@ const fetchParticipants = async () => {
 
 const getRandomColor = async (name) => {
   const hasParticipated = StorageService.getItem(USER_STORAGE_KEY);
-
   if (hasParticipated) return false;
 
   try {
@@ -33,7 +32,7 @@ const getRandomColor = async (name) => {
     });
 
     const data = await response.json();
-    StorageService.setItem(USER_STORAGE_KEY, "true");
+    StorageService.setItem(USER_STORAGE_KEY, 1);
     return data;
   } catch (err) {
     console.error("Failed to access Google Sheet:", err);

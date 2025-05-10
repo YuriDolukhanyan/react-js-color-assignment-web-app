@@ -9,7 +9,7 @@ const ResultSection = () => {
     <div className="game-result-section">
       <h2>Already Registered Users (RESULT AREA):</h2>
       {results.length === 0 ? (
-        <p>No current results available. Loading...</p>
+        <p>No any current results available. Loading...</p>
       ) : (
         results.map((userObj) => (
           <UserItem
