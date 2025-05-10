@@ -40,11 +40,6 @@ const ColorList = () => {
     try {
       const data = await getRandomColor(name);
 
-      if (!data) {
-        showToast("Only one trial per session...");
-        return;
-      }
-
       if (data.error) {
         setError(data.error);
         return;
@@ -93,9 +88,7 @@ const ColorList = () => {
             onClose={() => setToastMessage("")}
           />
         )}
-        {hasParticipated ? (
-          "You have already been assigned a color during this session..."
-        ) : (
+        {hasParticipated ? ("You have already been assigned a color during this session...") : (
           <>
             <h2>Enter Your Name</h2>
             <input

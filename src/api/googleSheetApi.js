@@ -22,7 +22,7 @@ const fetchParticipants = async () => {
 
 const getRandomColor = async (name) => {
   const hasParticipated = StorageService.getItem(USER_STORAGE_KEY);
-  if (hasParticipated) return false;
+  if (hasParticipated) return;
 
   try {
     const response = await fetch(GOOGLE_SHEET_URL, {

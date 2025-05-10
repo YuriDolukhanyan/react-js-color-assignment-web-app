@@ -8,7 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   return (
     <div className="App">
-      <h1>Color Assignment - React WEB APP</h1>
+      <h1>(Random) Color Assignment - React WEB APP</h1>
       <ResultProvider>
         <AvailableColorProvider>
           <AuthProvider>
