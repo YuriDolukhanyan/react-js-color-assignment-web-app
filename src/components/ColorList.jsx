@@ -30,6 +30,11 @@ const ColorList = () => {
       return;
     }
 
+    if (!isNaN(name.trim())) {
+      setError("Name cannot be a number...");
+      return;
+    }
+
     if (
       results.find((entry) => entry.name.toLowerCase() === name.toLowerCase())
     ) {
@@ -38,7 +43,7 @@ const ColorList = () => {
     }
 
     try {
-      const data = await getRandomColor(name);
+      const data = await getRandomColor(String(name));
 
       if (data.error) {
         setError(data.error);
@@ -47,7 +52,7 @@ const ColorList = () => {
 
       const newUser = {
         id: generateId(),
-        name: data.name,
+        name: String(data.name),
         color: data.color,
         hex: data.hex,
       };
