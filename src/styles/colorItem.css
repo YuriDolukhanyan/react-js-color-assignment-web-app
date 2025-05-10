@@ -1,0 +1,14 @@
+.color-item {
+  background-color: var(--bg-color);
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

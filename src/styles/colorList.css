@@ -1,0 +1,12 @@
+.color-list {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+}
